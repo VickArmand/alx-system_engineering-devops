@@ -1,0 +1,12 @@
+total 36
+-rwxr--r-- 1 root root  32 Oct 12 00:17 0-hello_world
+-rwxr--r-- 1 root root  28 Oct 12 00:24 1-confused_smiley
+-rwxr--r-- 1 root root  28 Oct 12 00:36 2-hellofile
+-rwxr--r-- 1 root root  39 Oct 12 00:37 3-twofiles
+-rwxr--r-- 1 root root  35 Oct 12 01:00 4-lastlines
+-rwxr--r-- 1 root root  35 Oct 12 00:41 5-firstlines
+-rwxr--r-- 1 root root  39 Oct 12 01:05 6-third_line
+-rw-r--r-- 1 root root   0 Oct 12 01:05 iacta
+-rw-r--r-- 1 root root 468 Oct 12 01:02 icta
+-rw-r--r-- 1 root root  19 Oct 12 00:08 README.md
+-rw-r--r-- 1 root root  19 Oct 12 00:08 README.md
