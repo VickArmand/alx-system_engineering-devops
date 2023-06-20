@@ -1,5 +1,6 @@
-#Welcome to the adventures of Shell Redirection & Filters
-<br>
-Expected objetives: <br>
-* Shell I/O redirection
-* Special Characters
+<h1>Welcome to the adventures of Shell Redirection & Filters</h1>
+<h4>Learning objectives:</h4>
+<ul>
+<li>Shell I/O redirection</li>
+<li>Special Characters</li>
+</ul>
