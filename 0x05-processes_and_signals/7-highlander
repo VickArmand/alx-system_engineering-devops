@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Bash script that writes To infinity and beyond indefinitely With a sleep 2 in between each iteration and displays I am invincible!!! when receiving a SIGTERM signal
 while true
 do
 	trap "echo I am invincible!!!" SIGTERM
