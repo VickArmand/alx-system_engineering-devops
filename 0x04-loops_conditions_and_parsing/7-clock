@@ -3,7 +3,7 @@
 hr=0
 while ((hr<24))
 do
-	echo "Hour $hr"
+	echo "Hour: $hr"
 	min=1
 	while ((min<60))
 	do
