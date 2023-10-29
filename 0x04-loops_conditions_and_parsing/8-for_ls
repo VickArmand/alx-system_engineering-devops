@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Bash script that displays: The content of the current directory In a list format Where only the part of the name after the first dash is displayed
-for item in $(ls);do
-	echo $item | cut -d '-' -f2
+list=$(ls)
+for item in $list
+do
+	echo "$item" | cut -d '-' -f2
 done
