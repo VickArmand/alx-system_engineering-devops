@@ -2,20 +2,20 @@
 #include <unistd.h>
 #include <stdio.h>
 /**
- * infinite_while: runs infinitely
+ * infinite_while - runs infinitely
  * Return: 0 (Success)
  */
 
 int infinite_while(void)
 {
-    while (1)
-    {
-        sleep(1);
-    }
-    return (0);
+	while (1)
+	{
+		sleep(1);
+	}
+	return (0);
 }
 /**
- * main: main function
+ * main - creates 5 zombie processes
  * Return: 0 (Success)
  */
 int main(void)
