@@ -17,6 +17,6 @@ else
 	sshpath=$4
 	sourcepath=$1
 	ip=$2
-	destination="$3@$2":~/
-	scp $sourcepath $destination -o StrictHostKeyChecking=no -i $sshpath
+	destination="$3@$2:~/"
+	scp -o StrictHostKeyChecking=no -i $sshpath $sourcepath $destination
 fi
