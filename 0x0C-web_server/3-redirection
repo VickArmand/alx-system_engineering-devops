@@ -9,5 +9,9 @@
 #	write 3-redirection so that it
 #	configures a brand new Ubuntu machine to the requirements
 #	asked in this task
-echo "" > /var/www/html/.htaccess
-sudo service nginx start
+sudo apt update
+sudo apt -y install nginx
+echo 'Hello World!' > /var/www/html/index.html
+new_string="location /redirect_me {\n\t\treturn 301 https://intranet.alxswe.com;\n\t}\n"
+sudo sed -i "30i $new_string" /etc/nginx/sites-available/default
+sudo service nginx restart
