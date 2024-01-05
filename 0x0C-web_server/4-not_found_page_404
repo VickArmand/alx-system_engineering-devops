@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Requirements:
+#	The page must return an HTTP 404 error code
+#	The page must contain the string Ceci n'est pas une page
+#	Using what you did with 3-redirection,
+#	write 4-not_found_page_404 so that it configures
+#	a brand new Ubuntu machine to the requirements asked in this task
+sudo apt update
+sudo apt -y install nginx
+echo 'Hello World!' | sudo tee /var/www/html/index.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
+redirect_string="\\\tlocation /redirect_me {\n\t\treturn 301 https://intranet.alxswe.com;\n\t}\n\terror_page 404 /custom_404.html{\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
+sudo sed -i "30i $redirect_string" /etc/nginx/sites-available/default
+sudo service nginx restart
