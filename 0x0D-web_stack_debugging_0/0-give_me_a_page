@@ -1,0 +1,6 @@
+apt update
+apt install apache2
+apt install curl
+/etc/init.d/apache2 start
+sed -i s/"Listen 80"/"Listen 8080"/ /etc/apache2/ports.conf
+service apache2 restart
