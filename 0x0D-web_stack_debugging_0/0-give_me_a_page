@@ -5,5 +5,5 @@ apt install apache2
 apt install curl
 /etc/init.d/apache2 start
 echo "Hello Holberton" > /var/www/html/index.html
-sed -i s/"Listen 80"/"Listen 8080"/ /etc/apache2/ports.conf
+sed -i "s/Listen 80/Listen 8080/g" /etc/apache2/ports.conf
 service apache2 restart
