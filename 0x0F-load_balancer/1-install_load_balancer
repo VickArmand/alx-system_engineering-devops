@@ -4,11 +4,10 @@
 
 CFG="frontend haproxynode\n\tmode http\n\tdefault_backend backendnodes\n\nbackend backendnodes\n\tmode http\n\tbalance roundrobin\n\toption forwardfor\n\tserver 172785-web-01 100.25.151.158:80 check\n\tserver 172785-web-02 34.207.57.64:80 check"
 sudo apt-get update
-sudo apt-get -y install nginx
 sudo apt-get install -y haproxy
 
 # Make sure HAproxy can be managed via an init script
-sudo sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
+echo "ENABLED=1" >> /etc/default/haproxy
 
 # Backup original config file before attempt modifications
 sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.backup
