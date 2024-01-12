@@ -9,28 +9,51 @@
 #	to automatically configure an Ubuntu machine to
 #	respect above requirements
 exec {'update packages':
-  command  => 'sudo apt-get update',
+  command  => 'sudo apt-get -y update',
   provider => shell
 }
 
 package { 'nginx':
-  ensure     => 'installed',
+  ensure => 'installed',
 }
 
-file {'/usr/share/nginx/html/index.html':
-  path    => '/usr/share/nginx/html/index.html',
-  content => 'Hello World!'
-}
-
-file {'/var/www/html/custom_404.html':
-  content => "Ceci n'est pas une page"
-}
-
-exec {'configure nginx':
-  command  => 'sudo sed -i "30i \\\tlocation /redirect_me {\n\t\treturn 301 https://intranet.alxswe.com;\n\t}\n" /etc/nginx/sites-available/default',
+exec {'/usr/share/nginx/html/index.html':
+  command    => 'echo "Hello World!" | sudo tee /var/www/html/index.html',
   provider => shell
 }
 
+exec {'/var/www/html/custom_404.html':
+  command    => 'echo "Ceci n\'est pas une page" | sudo tee /var/www/html/custom_404.html',
+  provider => shell
+}
+
+file { 'Nginx default config file':
+  ensure  => file,
+  path    => '/etc/nginx/sites-enabled/default',
+  content =>
+"server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+               root /var/www/html;
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+        server_name _;
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files \$uri \$uri/ =404;
+        }
+        error_page 404 /404.html;
+        location  /404.html {
+            internal;
+        }
+        
+        if (\$request_filename ~ redirect_me){
+            rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+        }
+}
+",
+}
 exec {'nginx restart':
   command  => 'sudo service nginx restart',
   provider => shell
