@@ -1,35 +1,25 @@
-# creating a custom HTTP header response, on a web server with Puppet.
-exec {'update packages':
+# Installs a Nginx server with custom HTTP header
+
+exec {'update':
+  provider => shell,
   command  => 'sudo apt-get -y update',
-  provider => shell
+  before   => Exec['install Nginx'],
 }
 
-package { 'nginx':
-  ensure  => 'installed'
+exec {'install Nginx':
+  provider => shell,
+  command  => 'sudo apt-get -y install nginx',
+  before   => Exec['add_header'],
 }
 
-exec {'/usr/share/nginx/html/index.html':
-  command    => 'echo "Hello World!" | sudo tee /var/www/html/index.html',
-  provider => shell
-}
-
-exec {'/var/www/html/custom_404.html':
-  command    => 'echo "Ceci n\'est pas une page" | sudo tee /var/www/html/custom_404.html',
-  provider => shell
-}
-
-exec {'nginx configuration':
-  command  => 'sudo sed -i -E "s/^[^#]+location \/ \{/\\\terror_page 404 \/custom_404.html;\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/intranet.alxswe.com;/" /etc/nginx/sites-available/default',
-  provider => shell
-}
-
-exec {'nginx configuration 2':
+exec { 'add_header':
   provider    => shell,
   environment => ["HOST=${hostname}"],
-  command     => 'sudo sed -i -E "s/^server \{/server {\n\tadd_header X-Served-By $HOST;/" /etc/nginx/sites-available/default'
+  command     => 'sudo sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOST\";/" /etc/nginx/nginx.conf',
+  before      => Exec['restart Nginx'],
 }
 
-exec {'restart nginx':
+exec { 'restart Nginx':
+  provider => shell,
   command  => 'sudo service nginx restart',
-  provider => shell
 }
