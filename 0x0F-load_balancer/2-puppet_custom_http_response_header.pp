@@ -1,21 +1,21 @@
 # creating a custom HTTP header response, on a web server with Puppet.
 exec {'update packages':
-  command  => 'sudo apt-get update',
+  command  => 'sudo apt-get -y update',
   provider => shell
 }
 
 package { 'nginx':
-  ensure  => 'installed',
+  ensure  => 'installed'
 }
 
-file {'/usr/share/nginx/html/index.html':
-  content => 'Hello World!',
-  path    => '/usr/share/nginx/html/index.html'
+exec {'/usr/share/nginx/html/index.html':
+  command    => 'echo "Hello World!" | sudo tee /var/www/html/index.html',
+  provider => shell
 }
 
-file {'/var/www/html/custom_404.html':
-  content => "Ceci n'est pas une page",
-  path    => '/var/www/html/custom_404.html'
+exec {'/var/www/html/custom_404.html':
+  command    => 'echo "Ceci n\'est pas une page" | sudo tee /var/www/html/custom_404.html',
+  provider => shell
 }
 
 exec {'nginx configuration':
