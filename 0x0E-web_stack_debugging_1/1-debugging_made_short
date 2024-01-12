@@ -2,4 +2,4 @@
 # Changes port in Nginx
 sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
 service restart nginx
-systemctl stop nginx
+service stop nginx
