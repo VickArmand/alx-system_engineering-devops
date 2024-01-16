@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Bash script that will display information about subdomains.
+# Requirements:
+# 	Add the subdomain www to your domain, point it to your lb-01 IP
+#	(your domain name might be configured with default subdomains,
+#	feel free to remove them)
+# 	Add the subdomain lb-01 to your domain, point it to your lb-01 IP
+# 	Add the subdomain web-01 to your domain, point it to your web-01 IP
+# 	Add the subdomain web-02 to your domain, point it to your web-02 IP
+# 	Your Bash script must accept 2 arguments:
+# 		domain: type: string, what: domain name to audit, mandatory: yes
+# 		subdomain: type: string, what: specific subdomain to audit, mandatory: no
+if [ -z "$2" ]
+then
+        answer="$1."
+        dig "$1" | awk '/'"$answer"'/ {if(NF > 3) print "The subdomain " "'"$1"'" " is a " $4 " record and points to " $5}'
+else
+	domain="$2.$1"
+	answer="$2.$1."
+	dig "$domain" | awk '/'"$answer"'/ {if(NF > 3) print "The subdomain " "'"$2"'" " is a " $4 " record and points to " $5}'
+fi

@@ -1,0 +1,20 @@
+
+; <<>> DiG 9.18.18-0ubuntu0.22.04.1-Ubuntu <<>> web-01.bestrookie.tech
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 23215
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;web-01.bestrookie.tech.		IN	A
+
+;; ANSWER SECTION:
+web-01.bestrookie.tech.	7141	IN	A	100.25.151.158
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+;; WHEN: Tue Jan 16 18:58:01 EAT 2024
+;; MSG SIZE  rcvd: 67
+
