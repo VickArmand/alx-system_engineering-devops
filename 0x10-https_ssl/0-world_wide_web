@@ -10,12 +10,16 @@
 # 	Your Bash script must accept 2 arguments:
 # 		domain: type: string, what: domain name to audit, mandatory: yes
 # 		subdomain: type: string, what: specific subdomain to audit, mandatory: no
+domain_info () {
+	answer="$2.$1."
+	dig "$2.$1" | awk '/'"$answer"'/ {if(NF > 3) print "The subdomain " "'"$2"'" " is a " $4 " record and points to " $5}'
+}
 if [ -z "$2" ]
 then
-        answer="$1."
-        dig "$1" | awk '/'"$answer"'/ {if(NF > 3) print "The subdomain " "'"$1"'" " is a " $4 " record and points to " $5}'
+	domain_info "$1" "www"
+	domain_info "$1" "lb-01"
+	domain_info "$1" "web-01"
+	domain_info "$1" "web-02"
 else
-	domain="$2.$1"
-	answer="$2.$1."
-	dig "$domain" | awk '/'"$answer"'/ {if(NF > 3) print "The subdomain " "'"$2"'" " is a " $4 " record and points to " $5}'
+	domain_info "$1" "$2"
 fi
