@@ -3,6 +3,7 @@
 <ul>
 <li>What is HTTPS SSL 2 main roles</li>
 <li>What is the purpose encrypting traffic</li>
-<li>What SSL termination means</li>
+<li>What SSL termination means and implementation using Certbot and HAproxy</li>
+<li>Configure HAproxy to automatically redirect HTTP traffic to HTTPS.</li>
 </ul>
 
