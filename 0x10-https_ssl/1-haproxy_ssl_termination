@@ -16,13 +16,19 @@ defaults
 
 frontend node
 	default_backend servers
-	bind *:443
-
+	bind *:80
+frontend www-https
+	bind 0.0.0.0:443 ssl crt /etc/letsencrypt/archive/www.bestrookie.tech/www.bestrookie.tech.pem
+	acl letsencrypt-acl path_beg /.well-known/some-challenge/
+	use_backend letsencrypt-backend if letsencrypt-acl
+	default_backend servers
 backend servers
-	mode https
+	mode http
 	stats enable
 	stats uri /haproxy?stats
 	option httpclose
 	balance roundrobin
 	server 172785-web-01 100.25.151.158:80 check
 	server 172785-web-02 34.207.57.64:80 check
+backend letsencrypt-backend
+	server letsencrypt 127.0.0.1:54321
