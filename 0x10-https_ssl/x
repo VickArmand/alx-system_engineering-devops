@@ -18,7 +18,6 @@ frontend node
 	bind *:80
 	http-request set-header X-Forwarded-Proto: http
 	redirect scheme https code 301 if !{ ssl_fc }
-	default_backend servers
 frontend www-https
 	http-request set-header X-Forwarded-Proto: https
 	bind 0.0.0.0:443 ssl crt /etc/letsencrypt/archive/www.bestrookie.tech/www.bestrookie.tech.pem

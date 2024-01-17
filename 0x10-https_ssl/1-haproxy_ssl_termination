@@ -15,12 +15,12 @@ defaults
     timeout server  10000
 
 frontend node
-	default_backend servers
 	bind *:80
+	http-request set-header X-Forwarded-Proto: http
+	default_backend servers
 frontend www-https
+	http-request set-header X-Forwarded-Proto: https
 	bind 0.0.0.0:443 ssl crt /etc/letsencrypt/archive/www.bestrookie.tech/www.bestrookie.tech.pem
-	acl letsencrypt-acl path_beg /.well-known/some-challenge/
-	use_backend letsencrypt-backend if letsencrypt-acl
 	default_backend servers
 backend servers
 	mode http
@@ -30,5 +30,3 @@ backend servers
 	balance roundrobin
 	server 172785-web-01 100.25.151.158:80 check
 	server 172785-web-02 34.207.57.64:80 check
-backend letsencrypt-backend
-	server letsencrypt 127.0.0.1:54321
