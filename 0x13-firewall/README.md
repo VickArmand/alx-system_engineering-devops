@@ -3,5 +3,6 @@
 <ul>
 <li>ufw installation</li>
 <li>ufw configuration</li>
+<li>Using telnet to check if sockets are open</li>
 <li>Port forwarding</li>
 </ul>
