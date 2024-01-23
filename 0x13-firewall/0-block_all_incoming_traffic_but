@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+# install the ufw firewall and setup a few rules on web-01
+# Configure ufw so that it blocks all incoming traffic, except the following TCP ports: 22 (SSH), 443 (HTTPS SSL), 80 (HTTP)
+To                         Action      From
+--                         ------      ----
+Nginx HTTP                 ALLOW       Anywhere
+22,80,443/tcp              ALLOW       Anywhere
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)
+22,80,443/tcp (v6)         ALLOW       Anywhere (v6)
