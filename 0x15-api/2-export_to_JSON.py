@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 """
-extend your Python script from 0-gather_data_from_an_API.py
-to export data in the CSV format.
+extend your Python script from 1-export_to_CSV.py
+to export data in the JSON format.
 
 Requirements:
     Records all tasks that are owned by this employee
-    Format must be: "USER_ID","USERNAME","TASK_COMPLETED_STATUS",
-    "TASK_TITLE"
-    File name must be: USER_ID.csv
-
+    Format must be: { "USER_ID": [{"task": "TASK_TITLE",
+    "completed": TASK_COMPLETED_STATUS, "username": "USERNAME"},
+    {"task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS,
+    "username": "USERNAME"}, ... ]}
+    File name must be: USER_ID.json
 """
 import csv
 import json
@@ -24,13 +25,20 @@ if __name__ == "__main__":
         user = json.loads(response.read())
     req1 = urllib.request.Request(
             "https://jsonplaceholder.typicode.com/users/{}/todos".format(e_id))
-    filename = "{}.csv".format(user.get('id'))
+    user_id = user.get('id')
+    filename = "{}.json".format(user_id)
     header = ["userId", "username", "completed", "title"]
     with urllib.request.urlopen(req1) as response:
         tasks = json.loads(response.read())
+    completed_tasks = 0
+    second_line = ""
+    data = {}
+    prev_keys = ['title', 'userId', 'id']
     for record in tasks:
+        record['task'] = record.get('title')
         record['username'] = user.get('username')
-        del record['id']
-    with open(filename, 'w', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=header)
-        writer.writerows(tasks)
+        for key in prev_keys:
+            del record[key]
+    data[user_id] = tasks
+    with open(filename, 'w') as csvfile:
+        json.dump(data, csvfile)
