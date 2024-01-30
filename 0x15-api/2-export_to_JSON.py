@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-extend your Python script from 1-export_to_CSV.py
+extend your Python script from 0-gather_data_from_an_API.py
 to export data in the JSON format.
 
 Requirements:
@@ -27,11 +27,8 @@ if __name__ == "__main__":
             "https://jsonplaceholder.typicode.com/users/{}/todos".format(e_id))
     user_id = user.get('id')
     filename = "{}.json".format(user_id)
-    header = ["userId", "username", "completed", "title"]
     with urllib.request.urlopen(req1) as response:
         tasks = json.loads(response.read())
-    completed_tasks = 0
-    second_line = ""
     data = {}
     prev_keys = ['title', 'userId', 'id']
     for record in tasks:
@@ -40,5 +37,5 @@ if __name__ == "__main__":
         for key in prev_keys:
             del record[key]
     data[user_id] = tasks
-    with open(filename, 'w') as csvfile:
-        json.dump(data, csvfile)
+    with open(filename, 'w') as jsonfile:
+        json.dump(data, jsonfile)
