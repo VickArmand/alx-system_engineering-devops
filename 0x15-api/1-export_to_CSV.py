@@ -32,5 +32,6 @@ if __name__ == "__main__":
         record['username'] = user.get('username')
         del record['id']
     with open(filename, 'w', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=header)
+        writer = csv.DictWriter(csvfile, fieldnames=header,
+                                quoting=csv.QUOTE_ALL)
         writer.writerows(tasks)
