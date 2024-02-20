@@ -5,3 +5,4 @@
 <li>To provide the rest of the company’s employees easy access to information detailing the cause of the outage. Often outages can have a huge impact on a company, so managers and executives have to understand what happened and how it will impact their work.</li>
 <li>And to ensure that the root cause(s) of the outage has been discovered and that measures are taken to make sure it will be fixed.</li>
 </ul>
+<p>Check out this https://medium.com/@victormaina1962/my-first-postmortem-6f34abf5d79b for an example of an incident report</p>
