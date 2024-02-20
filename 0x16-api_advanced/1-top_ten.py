@@ -16,9 +16,9 @@ def top_ten(subreddit):
     url = 'https://www.reddit.com/r/{}/hot.json?limit=10'.format(subreddit)
     headers = {'User-Agent': 'My User Agent 1.0'}
 
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code >= 300:
+    response = requests.get(url, headers=headers).json()
+    top_ten = response.get('data').get('children')
+    if not top_ten:
         print("None")
-    else:
-        for post in response.json().get('data').get('children'):
-            print(post.get('data').get('title'))
+    for post in top_ten:
+        print(post.get('data').get('title'))
