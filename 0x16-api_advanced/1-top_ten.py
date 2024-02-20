@@ -17,7 +17,7 @@ def top_ten(subreddit):
     headers = {'User-Agent': 'My User Agent 1.0'}
 
     response = requests.get(url, headers=headers).json()
-    top_ten = response.get('data').get('children')
+    top_ten = response.get('data', {}).get('children', [])
     if not top_ten:
         print("None")
     for post in top_ten:
