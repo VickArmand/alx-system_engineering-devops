@@ -17,7 +17,7 @@ def top_ten(subreddit):
     headers = {'User-Agent': 'My User Agent 1.0'}
 
     response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code == 404:
+    if response.status_code >= 300:
         print("None")
     else:
         for post in response.json().get('data').get('children'):
